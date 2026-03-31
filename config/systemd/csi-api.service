@@ -1,0 +1,17 @@
+[Unit]
+Description=WiFi-CSI 낙상 감지 FastAPI 서버 (uvicorn)
+After=network.target mysql.service
+Wants=mysql.service
+
+[Service]
+User=lee
+WorkingDirectory=/home/lee/project
+ExecStart=/home/lee/project/venv/bin/uvicorn api.main:app --host 0.0.0.0 --port 8000
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+Environment=PYTHONPATH=/home/lee/project
+
+[Install]
+WantedBy=multi-user.target

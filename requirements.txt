@@ -1,0 +1,39 @@
+# WiFi-CSI 낙상 감지 시스템 의존성
+#
+# ⚠️  aarch64 (Raspberry Pi) 설치 주의사항:
+#   torch는 CPU 전용 인덱스에서 별도 설치 필요:
+#     pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   install_python_env.sh 가 자동 처리하므로 직접 pip install -r 하지 말 것.
+#
+# ⚠️  RPi.GPIO / smbus2 / RPLCD 는 Raspberry Pi 하드웨어 전용.
+#   다른 환경에서는 자동 비활성화됨 (gpio_alert.py graceful fallback).
+
+# ── API 서버 ──────────────────────────────────────────────────────────────────
+fastapi>=0.111.0,<1.0
+uvicorn[standard]>=0.29.0
+python-multipart>=0.0.9
+httpx>=0.27.0
+
+# ── ML / 추론 ─────────────────────────────────────────────────────────────────
+# torch: aarch64는 install_python_env.sh 참조 (CPU-only whl)
+torch>=2.3.0
+numpy>=1.26.0
+scipy>=1.13.0
+
+# ── 데이터 처리 ───────────────────────────────────────────────────────────────
+pandas>=2.2.0
+
+# ── 오디오 ───────────────────────────────────────────────────────────────────
+sounddevice>=0.4.6
+librosa>=0.10.0
+
+# ── 스케줄링 ──────────────────────────────────────────────────────────────────
+apscheduler>=3.10.4
+
+# ── 데이터베이스 ──────────────────────────────────────────────────────────────
+mysql-connector-python>=8.4.0
+
+# ── 하드웨어 (Raspberry Pi 전용) ──────────────────────────────────────────────
+RPi.GPIO>=0.7.1       # GPIO 제어 (부저, LED)
+smbus2>=0.4.3         # I2C 버스 (LCD 연결 확인)
+RPLCD>=1.3.0          # I2C LCD 문자 출력

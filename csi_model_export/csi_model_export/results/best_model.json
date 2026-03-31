@@ -1,0 +1,7 @@
+{
+  "model": "cnn_gru",
+  "test_acc": 0.998678122934567,
+  "infer_ms": 0.05680726570784773,
+  "fall_recall": 1.0,
+  "liedown_recall": 0.9977628635346756
+}
